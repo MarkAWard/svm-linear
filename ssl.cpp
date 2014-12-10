@@ -1,5 +1,6 @@
-/*    Copyright 2006 Vikas Sindhwani (vikass@cs.uchicago.edu)
-      SVM-lin: Fast SVM Solvers for Supervised and Semi-supervised Learning
+/*    Copyright 2014 Mark Ward (maw627@nyu.edu)
+      Copyright 2006 Vikas Sindhwani (vikass@cs.uchicago.edu)
+      SVMlinear: Fast SVM Solvers for Supervised and Semi-supervised Learning
 
       This file is part of SVM-lin.      
 
