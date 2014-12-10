@@ -89,6 +89,14 @@ struct options
   
 };
 
+struct binary_evaluation
+{
+  double tp;
+  double tn;
+  double fp;
+  double fn;
+};
+
 class timer { /* to output run time */
 protected:
   double start, finish;
@@ -127,6 +135,7 @@ void Clear(struct data *a); /* deletes a */
 void Clear(struct vector_double *a); /* deletes a */
 void Clear(struct vector_int *a); /* deletes a */
 double norm_square(const vector_double *A); /* returns squared length of A */
+void evaluation_helper(struct binary_evaluation *E, struct vector_double *O, struct vector_double *T);
 
 /* ssl_train: takes data, options, uninitialized weight and output
    vector_doubles, routes it to the algorithm */

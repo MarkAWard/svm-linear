@@ -1144,33 +1144,36 @@ void ssl_predict(char *inputs_file_name, const struct vector_double *Weights, st
 /* roc area */
 void ssl_evaluate(struct vector_double *Outputs, struct vector_double *TrueLabels)
 { 
-  double accuracy = 0.0;
-  double true_pos = 0.0;
-  double false_pos = 0.0;
-  double false_neg = 0.0;
-  double true_neg = 0.0;
-  for(int i=0; i<Outputs->d; i++) {
-    accuracy += (Outputs->vec[i] * TrueLabels->vec[i]) > 0;
-    true_pos += (Outputs->vec[i] > 0 && TrueLabels->vec[i] > 0);
-    false_pos += (Outputs->vec[i] > 0 && TrueLabels->vec[i] < 0);
-    false_neg += (Outputs->vec[i] < 0 && TrueLabels->vec[i] > 0);
-    true_neg += (Outputs->vec[i] < 0 && TrueLabels->vec[i] < 0);
-  }
-  cout << "Accuracy = " << accuracy * 100.0 / Outputs->d << " %" << endl;
-  cout << "Precision = " << true_pos * 100.0 / (true_pos + false_pos) << " %" << endl;
-  cout << "Recall = " << true_pos * 100.0 / (true_pos + false_neg)<< " %" << endl;
+  struct binary_evaluation *Eval = new struct binary_evaluation;
+  evaluation_helper(Eval, Outputs, TrueLabels);
+
+  cout << "Accuracy = " << (Eval->tp + Eval->tn) * 100.0 / Outputs->d << " %" << endl;
+  cout << "Precision = " << Eval->tp * 100.0 / (Eval->tp + Eval->fp) << " %" << endl;
+  cout << "Recall = " << Eval->tp * 100.0 / (Eval->tp + Eval->fn)<< " %" << endl;
   cout << "Confusion Matrix " << endl;
   printf("\t  predicted labels\n");
   printf("\t+----+------+------+\n");
   printf("\t|    |  +1  |  -1  |\n");
   printf("\t+----+------+------+\n");
-  printf("  true  | +1 |%6d|%6d|\n", (int)true_pos, (int)false_neg);
+  printf("  true  | +1 |%6d|%6d|\n", (int)Eval->tp, (int)Eval->fn);
   printf("\t|----+------+------+\n");
-  printf(" labels | -1 |%6d|%6d|\n", (int)false_pos, (int)true_neg);
+  printf(" labels | -1 |%6d|%6d|\n", (int)Eval->fp, (int)Eval->tn);
   printf("\t|----+------+------+\n");
 }
 
 /********************** UTILITIES ********************/
+void evaluation_helper(struct binary_evaluation *E, struct vector_double *Outputs, struct vector_double *TrueLabels)
+{
+  for(int i=0; i<Outputs->d; i++) 
+  {
+    E->tp += (Outputs->vec[i] > 0 && TrueLabels->vec[i] > 0);
+    E->fp += (Outputs->vec[i] > 0 && TrueLabels->vec[i] < 0);
+    E->fn += (Outputs->vec[i] < 0 && TrueLabels->vec[i] > 0);
+    E->tn += (Outputs->vec[i] < 0 && TrueLabels->vec[i] < 0);
+  }
+}
+
+
 double norm_square(const vector_double *A)
 {
   double x=0.0, t=0.0;
