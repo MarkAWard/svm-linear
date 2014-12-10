@@ -2,20 +2,20 @@
       Copyright 2006 Vikas Sindhwani (vikass@cs.uchicago.edu)
       SVMlinear: Fast SVM Solvers for Supervised and Semi-supervised Learning
 
-      This file is part of SVM-lin.      
+      This file is part of SVM-linear.      
 
-      SVM-lin is free software; you can redistribute it and/or modify
+      SVM-linear is free software; you can redistribute it and/or modify
       it under the terms of the GNU General Public License as published by
       the Free Software Foundation; either version 2 of the License, or
       (at your option) any later version.
  
-      SVM-lin is distributed in the hope that it will be useful,
+      SVM-linear is distributed in the hope that it will be useful,
       but WITHOUT ANY WARRANTY; without even the implied warranty of
       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
       GNU General Public License for more details.
 
       You should have received a copy of the GNU General Public License
-      along with SVM-lin (see gpl.txt); if not, write to the Free Software
+      along with SVM-linear (see gpl.txt); if not, write to the Free Software
       Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #ifndef _svmlin_H
@@ -145,7 +145,7 @@ void ssl_train(struct data *Data,
 	       struct vector_double *W, /* weight vector */
 	       struct vector_double *O); /* output vector */
 
-/* Main svmlin Subroutines */
+/* Main svmlinear Subroutines */
 /*ssl_predict: reads test inputs from input_file_name, a weight vector, and an 
  uninitialized outputs vector. Performs */
 void ssl_predict(char *inputs_file_name, const struct vector_double *Weights, 
@@ -154,7 +154,7 @@ void ssl_predict(char *inputs_file_name, const struct vector_double *Weights,
    this code prints out various performance statistics. Currently only accuracy. */
 void ssl_evaluate(struct vector_double *Outputs,struct vector_double *True);
  
-/* svmlin algorithms and their subroutines */
+/* svmlinear algorithms and their subroutines */
  
 /* Conjugate Gradient for Sparse Linear Least Squares Problems */
 /* Solves: min_w 0.5*Options->lamda*w'*w + 0.5*sum_{i in Subset} Data->C[i] (Y[i]- w' x_i)^2 */

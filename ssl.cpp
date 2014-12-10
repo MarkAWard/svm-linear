@@ -2,20 +2,20 @@
       Copyright 2006 Vikas Sindhwani (vikass@cs.uchicago.edu)
       SVMlinear: Fast SVM Solvers for Supervised and Semi-supervised Learning
 
-      This file is part of SVM-lin.      
+      This file is part of SVM-linear.      
 
-      SVM-lin is free software; you can redistribute it and/or modify
+      SVM-linear is free software; you can redistribute it and/or modify
       it under the terms of the GNU General Public License as published by
       the Free Software Foundation; either version 2 of the License, or
       (at your option) any later version.
  
-      SVM-lin is distributed in the hope that it will be useful,
+      SVM-linear is distributed in the hope that it will be useful,
       but WITHOUT ANY WARRANTY; without even the implied warranty of
       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
       GNU General Public License for more details.
 
       You should have received a copy of the GNU General Public License
-      along with SVM-lin (see gpl.txt); if not, write to the Free Software
+      along with SVM-linear (see gpl.txt); if not, write to the Free Software
       Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
