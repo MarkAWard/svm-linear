@@ -1143,10 +1143,30 @@ void ssl_predict(char *inputs_file_name, const struct vector_double *Weights, st
 /* roc area */
 void ssl_evaluate(struct vector_double *Outputs, struct vector_double *TrueLabels)
 { 
-  double accuracy=0.0;
-  for(int i=0;i<Outputs->d;i++)
-    accuracy+=(Outputs->vec[i]*TrueLabels->vec[i])>0;
-  cout << "Accuracy = " << accuracy*100.0/Outputs->d << " %" << endl;
+  double accuracy = 0.0;
+  double true_pos = 0.0;
+  double false_pos = 0.0;
+  double false_neg = 0.0;
+  double true_neg = 0.0;
+  for(int i=0; i<Outputs->d; i++) {
+    accuracy += (Outputs->vec[i] * TrueLabels->vec[i]) > 0;
+    true_pos += (Outputs->vec[i] > 0 && TrueLabels->vec[i] > 0);
+    false_pos += (Outputs->vec[i] > 0 && TrueLabels->vec[i] < 0);
+    false_neg += (Outputs->vec[i] < 0 && TrueLabels->vec[i] > 0);
+    true_neg += (Outputs->vec[i] < 0 && TrueLabels->vec[i] < 0);
+  }
+  cout << "Accuracy = " << accuracy * 100.0 / Outputs->d << " %" << endl;
+  cout << "Precision = " << true_pos * 100.0 / (true_pos + false_pos) << " %" << endl;
+  cout << "Recall = " << true_pos * 100.0 / (true_pos + false_neg)<< " %" << endl;
+  cout << "Confusion Matrix " << endl;
+  printf("\t  predicted labels\n");
+  printf("\t+----+------+------+\n");
+  printf("\t|    |  +1  |  -1  |\n");
+  printf("\t+----+------+------+\n");
+  printf("  true  | +1 |%6d|%6d|\n", (int)true_pos, (int)false_neg);
+  printf("\t|----+------+------+\n");
+  printf(" labels | -1 |%6d|%6d|\n", (int)false_pos, (int)true_neg);
+  printf("\t|----+------+------+\n");
 }
 
 /********************** UTILITIES ********************/
